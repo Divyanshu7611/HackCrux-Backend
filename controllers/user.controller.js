@@ -15,9 +15,11 @@ exports.createUser = async (req, res) => {
         // Check if user already exists in Firebase
         try {
             const firebaseUser = await admin.auth().getUserByEmail(email)
-            return res.status(400).json({
-                success: false,
-                message: "User already exists in Firebase",
+            return res.status(200).json({
+                success: true,
+                message: "User Signuped Successfully",
+                firebaseId: firebaseUser.uid, // Return Firebase UID
+                data: firebaseUser,
             })
         } catch (error) {
             if (error.code !== 'auth/user-not-found') {
